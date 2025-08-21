@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Kidney Function Calculator&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/react@18/umd/react.development.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="root"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/babel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { useState } = React;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { Calculator, Droplets, Activity, AlertCircle, Info } = lucide;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const KidneyFunctionCalculator = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [activeTab, setActiveTab] = useState('ratio');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// K/Cr Ratio Calculator State</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [urineK, setUrineK] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [urineCr, setUrineCr] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [krRatio, setKrRatio] = useState(null);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [krInterpretation, setKrInterpretation] = useState('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Fractional Excretion K State</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekUrineK, setFekUrineK] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekUrineCr, setFekUrineCr] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekSerumK, setFekSerumK] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekSerumCr, setFekSerumCr] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekResult, setFekResult] = useState(null);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [fekInterpretation, setFekInterpretation] = useState('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Generic Fractional Excretion State</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [substance, setSubstance] = useState('Sodium');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [urineX, setUrineX] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [genericUrineCr, setGenericUrineCr] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [serumX, setSerumX] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [genericSerumCr, setGenericSerumCr] = useState('');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [genericResult, setGenericResult] = useState(null);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calculate K/Cr Ratio</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const calculateKCrRatio = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!urineK || !urineCr) return;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const k = parseFloat(urineK);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const cr = parseFloat(urineCr);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Convert urine creatinine from mg/dL to mmol/L</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Multiply by 88 to get μmol/L, then divide by 1000 to get mmol/L</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const crConverted = (cr * 88) / 1000;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const ratio = k / crConverted;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setKrRatio(ratio.toFixed(2));</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Interpretation based on the reference values</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (ratio &gt; 2.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setKrInterpretation('High (&gt;2.5) - Renal potassium wasting (diuretics, hyperaldosteronism, vomiting, metabolic alkalosis)');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (ratio &lt; 2.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setKrInterpretation('Low (&lt;2.5) - Potassium conservation (extra-renal losses, decreased intake, cellular shift)');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calculate Fractional Excretion of K</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const calculateFEK = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!fekUrineK || !fekUrineCr || !fekSerumK || !fekSerumCr) return;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const uK = parseFloat(fekUrineK);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const uCr = parseFloat(fekUrineCr);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const sK = parseFloat(fekSerumK);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const sCr = parseFloat(fekSerumCr);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const fe = ((uK * sCr) / (sK * uCr)) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setFekResult(fe.toFixed(1));</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Interpretation based on reference values</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (fe &gt; 9.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setFekInterpretation('High (&gt;9.5%, mean 15%) - Renal potassium wasting (diuretics, Bartter/Gitelman, vomiting, metabolic alkalosis)');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (fe &gt;= 4 &amp;&amp; fe &lt;= 16) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setFekInterpretation('Normal (4-16%, mean 8%) - Normal potassium handling');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (fe &lt; 6.4) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setFekInterpretation('Low (&lt;6.4%, mean 3%) - Renal potassium conservation (extra-renal losses, decreased intake, cellular shift)');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calculate Generic Fractional Excretion</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const calculateGenericFE = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!urineX || !genericUrineCr || !serumX || !genericSerumCr) return;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const uX = parseFloat(urineX);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const uCr = parseFloat(genericUrineCr);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const sX = parseFloat(serumX);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const sCr = parseFloat(genericSerumCr);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const fe = ((uX * sCr) / (sX * uCr)) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setGenericResult(fe.toFixed(2));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const resetCalculator = (calculator) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>switch(calculator) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>case 'ratio':</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setUrineK('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setUrineCr('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setKrRatio(null);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setKrInterpretation('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>case 'fek':</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekUrineK('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekUrineCr('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekSerumK('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekSerumCr('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekResult(null);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setFekInterpretation('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>case 'generic':</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setUrineX('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setGenericUrineCr('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setSerumX('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setGenericSerumCr('');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setGenericResult(null);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="max-w-4xl mx-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Header */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="text-center mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="flex items-center justify-center mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Calculator className="h-12 w-12 text-blue-600 mr-3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;h1 className="text-4xl font-bold text-gray-900"&gt;Kidney Function Calculator&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-gray-600 text-lg"&gt;Professional tools for renal function assessment&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Tab Navigation */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex flex-wrap justify-center mb-8 bg-white rounded-xl shadow-lg p-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onClick={() =&gt; setActiveTab('ratio')}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className={`flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>activeTab === 'ratio'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>? 'bg-blue-600 text-white shadow-md'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>: 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Droplets className="h-5 w-5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>K/Cr Ratio</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onClick={() =&gt; setActiveTab('fek')}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className={`flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>activeTab === 'fek'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>? 'bg-blue-600 text-white shadow-md'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>: 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Activity className="h-5 w-5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>FE Potassium</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onClick={() =&gt; setActiveTab('generic')}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className={`flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>activeTab === 'generic'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>? 'bg-blue-600 text-white shadow-md'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>: 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Calculator className="h-5 w-5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>FE Generic</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* K/Cr Ratio Calculator */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'ratio' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-white rounded-2xl shadow-xl p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex items-center mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Droplets className="h-8 w-8 text-blue-600 mr-3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-2xl font-bold text-gray-900"&gt;Urine K/Cr Ratio Calculator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;Info className="h-5 w-5 text-blue-400 mt-0.5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="text-sm text-blue-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="font-semibold"&gt;Formula: K(urine) × 1000 / (Cr(urine) × 88)&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p&gt;Automatic unit conversion: mg/dL creatinine → mmol/L&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="grid md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Urine Potassium (mmol/L)</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>value={urineK}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onChange={(e) =&gt; setUrineK(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>placeholder="Enter urine K+"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Urine Creatinine (mg/dL)</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>value={urineCr}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onChange={(e) =&gt; setUrineCr(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>placeholder="Enter urine creatinine"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex space-x-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={calculateKCrRatio}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Calculate</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; resetCalculator('ratio')}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Reset</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>{krRatio &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;h3 className="text-lg font-semibold text-gray-900 mb-2"&gt;Result&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div className="text-3xl font-bold text-blue-600 mb-2"&gt;{krRatio}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;p className="text-sm text-gray-600 font-medium"&gt;{krInterpretation}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>)}</p>
+<p class="p2"><span class="Apple-converted-space">                                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-gray-50 rounded-lg p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h4 className="font-semibold text-gray-900 mb-2"&gt;Reference Values:&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;ul className="text-sm text-gray-700 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;&amp;gt;2.5:&lt;/strong&gt; Renal K+ wasting&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;&amp;lt;2.5:&lt;/strong&gt; K+ conservation&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;Mean values:&lt;/strong&gt; Wasting 4.1, Conservation 1.3&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Fractional Excretion of K Calculator */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'fek' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-white rounded-2xl shadow-xl p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex items-center mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Activity className="h-8 w-8 text-green-600 mr-3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-2xl font-bold text-gray-900"&gt;Fractional Excretion of Potassium&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;Info className="h-5 w-5 text-green-400 mt-0.5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="text-sm text-green-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="font-semibold"&gt;Formula: (K(urine) × Cr(serum)) / (K(serum) × Cr(urine)) × 100&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p&gt;Units cancel out - works with consistent units for serum and urine&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="grid md:grid-cols-2 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Urine K+ (mEq/L)</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={fekUrineK}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setFekUrineK(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Urine K+"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Urine Cr (mg/dL)</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={fekUrineCr}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setFekUrineCr(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Urine Cr"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Serum K+ (mEq/L)</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={fekSerumK}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setFekSerumK(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Serum K+"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Serum Cr (mg/dL)</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={fekSerumCr}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setFekSerumCr(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Serum Cr"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.01"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex space-x-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={calculateFEK}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Calculate FEK</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; resetCalculator('fek')}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Reset</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>{fekResult &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;h3 className="text-lg font-semibold text-gray-900 mb-2"&gt;FE K+ Result&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div className="text-3xl font-bold text-green-600 mb-2"&gt;{fekResult}%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;p className="text-sm text-gray-600 font-medium"&gt;{fekInterpretation}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>)}</p>
+<p class="p2"><span class="Apple-converted-space">                                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-gray-50 rounded-lg p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h4 className="font-semibold text-gray-900 mb-2"&gt;Reference Values:&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;ul className="text-sm text-gray-700 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;Normal:&lt;/strong&gt; 4-16% (mean 8%)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;Renal wasting:&lt;/strong&gt; &amp;gt;9.5% (mean 15%)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;Conservation:&lt;/strong&gt; &amp;lt;6.4% (mean 3%)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Generic Fractional Excretion Calculator */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'generic' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-white rounded-2xl shadow-xl p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex items-center mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Calculator className="h-8 w-8 text-purple-600 mr-3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-2xl font-bold text-gray-900"&gt;Fractional Excretion - Generic Calculator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="bg-purple-50 border-l-4 border-purple-400 p-4 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;Info className="h-5 w-5 text-purple-400 mt-0.5 mr-2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="text-sm text-purple-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="font-semibold"&gt;Formula: (X(urine) × Cr(serum)) / (X(serum) × Cr(urine)) × 100&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p&gt;Works for any substance X (sodium, urea, phosphate, etc.)&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="grid md:grid-cols-2 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Substance</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;select</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>value={substance}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onChange={(e) =&gt; setSubstance(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Sodium"&gt;Sodium (FENa)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Urea"&gt;Urea (FEUrea)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Phosphate"&gt;Phosphate&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Magnesium"&gt;Magnesium&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Lithium"&gt;Lithium&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;option value="Other"&gt;Other&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Urine {substance}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={urineX}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setUrineX(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Urine concentration"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Urine Creatinine</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={genericUrineCr}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setGenericUrineCr(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Urine Cr"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Serum {substance}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={serumX}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setSerumX(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Serum concentration"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.1"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block text-sm font-semibold text-gray-700 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>Serum Creatinine</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={genericSerumCr}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; setGenericSerumCr(e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>placeholder="Serum Cr"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>step="0.01"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex space-x-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={calculateGenericFE}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="flex-1 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Calculate FE{substance}</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; resetCalculator('generic')}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>Reset</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>{genericResult &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;h3 className="text-lg font-semibold text-gray-900 mb-2"&gt;FE{substance} Result&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div className="text-3xl font-bold text-purple-600 mb-2"&gt;{genericResult}%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>)}</p>
+<p class="p2"><span class="Apple-converted-space">                                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-gray-50 rounded-lg p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h4 className="font-semibold text-gray-900 mb-2"&gt;Common Reference Values:&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;ul className="text-sm text-gray-700 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;FENa:&lt;/strong&gt; &amp;lt;1% (prerenal), &amp;gt;2% (renal)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;FEUrea:&lt;/strong&gt; &amp;lt;35% (prerenal), &amp;gt;50% (renal)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;FE Phosphate:&lt;/strong&gt; 5-20% (normal)&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;li&gt;• &lt;strong&gt;Note:&lt;/strong&gt; Reference values vary by substance&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Footer */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="text-center mt-8 text-gray-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>⚠️ For educational purposes only. Always consult clinical guidelines and expert interpretation.</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>ReactDOM.render(&lt;KidneyFunctionCalculator /&gt;, document.getElementById('root'));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
