@@ -20,6 +20,13 @@ Menu labels move around on Higgsfield. The steps below describe what to do; if a
 2. Save each as a **Soul** character (or whatever the character-lock feature is called today) so the same face can be pinned across shots.
 3. Save the PNGs into `assets/` as `rosa-character.png` and `ana-character.png`.
 
+**Already generated (2026-09-06), pending your approval:** two candidate stills were produced outside Higgsfield and are hosted here. Open each, check the face reads as real and warm, then download and upload as references 6 and 7. If either misses, regenerate it in Higgsfield with the section C prompt.
+
+- Rosa: https://cdn.gamma.app/rf4e5jwe01g0ap7/design-anything/9UulD8JSN3VqmBvGXqAwF/LeWhFE05nTN1TgS7RvLzv.jpg
+- Ana: https://cdn.gamma.app/rf4e5jwe01g0ap7/design-anything/6VSLH6CcEcc2eYMPjU4HC/KtTdUrDf4P8tr4qdf7Se0.jpg
+
+These have not been visually reviewed. Egress policy in the session that made them blocked the download, so treat them as unvetted candidates, not approved references.
+
 ## 3. Upload references
 
 Upload in this exact order so `@Image1` through `@Image7` match the prompt: the five phone screens, then Rosa, then Ana. References go in before the prompt, not after.
@@ -62,3 +69,12 @@ For any scene that still won't behave, switch to per-shot prompts (section B):
 - Watch it once muted. Does it still make sense from captions and screens alone?
 - Watch it once at phone size, arm's length. Can you read the lower thirds and the disclaimer?
 - Show it to one person over 55 who isn't in healthcare. Ask what the app does. If they can't say "track blood pressure, food, and labs," fix the cut, not the copy.
+
+## Connector status note
+
+As of 2026-09-06 the Higgsfield connector is installed on this account but shows
+`enabledInChat: false`, so its tools are not loaded in an agent session and the
+render cannot be triggered from Claude Code. Enable Higgsfield in the chat's
+connector settings (the toggle beside the connector in this conversation), start
+a fresh session, and the master prompt in `04-prompts-seedance-2.5.md` can be
+submitted directly. Until then, run steps 1 through 7 in the Higgsfield web app.
